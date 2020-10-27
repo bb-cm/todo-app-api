@@ -1,0 +1,9 @@
+#.env file
+.env
+
+# Dependency directory
+node_modules
+
+# Logs
+logs
+*.log
