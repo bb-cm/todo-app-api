@@ -5,6 +5,21 @@ const cors = require('cors');
 const app = express()
 
 app.disable('x-powered-by');
+// TODO: 許可するメソッドやヘッダー検討
+const corsOptions = {
+    origin: [process.env.CORS_URL1],
+    methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+    allowedHeaders: [
+        'Accept',
+        'Authorization',
+        'ApiKey',
+        'Content-Type',
+        'Origin',
+        'X-Requested-With',
+        'If-None-Match',
+    ],
+};
+app.use(cors(corsOptions));
 
 // APIのバージョン
 const apiVer = '/api/v1';
