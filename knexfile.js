@@ -14,10 +14,10 @@ module.exports = {
         port: DB_PORT,
     },
     migrations: {
-        directory: __dirname + '/db/migrations',
+        directory: `${__dirname}/src/db/migrations`,
     },
     seeds: {
-        directory: __dirname + '/db/seeds',
+        directory: `${__dirname}/src/db/seeds`,
     },
   },
 
