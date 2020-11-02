@@ -2,23 +2,33 @@ exports.up = function(knex) {
     return knex.schema
         .createTable('user', function(table) {
             table.increments().primary()
-            table.bigint('email', 128).notNullable()
+            table.varchar('email', 128).notNullable().unique()
             table.varchar('password', 128).notNullable()
             table.timestamp('created_at').defaultTo(knex.fn.now())
             table.timestamp('updated_at').defaultTo(knex.fn.now())
         })
-        .createTable('todo_list', function(table) {
+        .createTable('todo', function(table) {
             table.increments().primary()
             table.bigint('user_id').notNullable()
-            table.varchar('neme', 100).notNullable()
+            table
+            .foreign('user_id')
+            .references('id')
+            .inTable('user')
+            .onDelete('CASCADE');
+            table.varchar('title', 100).notNullable()
             table.timestamp('created_at').defaultTo(knex.fn.now())
             table.timestamp('updated_at').defaultTo(knex.fn.now())
         })
-        .createTable('todo_task', function(table) {
+        .createTable('todo_detail', function(table) {
             table.increments().primary()
             table.bigint('todo_id').notNullable()
-            table.varchar('name', 100).notNullable()
-            table.boolean('is_done').notNullable()
+            table
+            .foreign('todo_id')
+            .references('id')
+            .inTable('todo')
+            .onDelete('CASCADE');
+            table.varchar('task', 100).notNullable()
+            table.boolean('is_done').notNullable().defaultTo(false)
             table.timestamp('created_at').defaultTo(knex.fn.now())
             table.timestamp('updated_at').defaultTo(knex.fn.now())
         })
