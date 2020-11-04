@@ -9,6 +9,20 @@
     "format": "npx prettier --single-quote --write  'src/**/*.{js,ts,json}'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "lint-staged": {
+    "src/**/*.{js,ts,json}": [
+      "prettier --single-quote --write"
+    ],
+    "src/**/*.js": [
+      "eslint"
+    ],
+    "*.{js,css,md}": "prettier --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -25,6 +39,8 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^2.7.0",
+    "lint-staged": "^10.5.1",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2"
   }
