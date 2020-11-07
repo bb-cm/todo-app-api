@@ -18,7 +18,7 @@ exports.getPath = async () => {
   // ユーザーテーブルの値取得
   const result = await sampleModel.getUsers();
   if (typeof result === 'undefined') {
-    // throw error;
+    throw new Error('Result is undefined');
   }
   return result;
 };
