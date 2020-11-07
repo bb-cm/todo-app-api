@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+
 const app = express();
 
 app.disable('x-powered-by');
@@ -26,6 +27,7 @@ const apiVer = '/api/v1';
 
 // パス
 app.use(`${apiVer}/auth`, require('./src/routes/auth'));
+app.use(`${apiVer}/todo`, require('./src/routes/todo'));
 app.use(`${apiVer}/sample`, require('./src/routes/sample')); // TODO: 参考用あとで消します
 
 // エラー処理
