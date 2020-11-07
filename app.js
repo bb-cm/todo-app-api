@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-
+const bodyParser = require('body-parser');
 const app = express();
 
 app.disable('x-powered-by');
@@ -19,6 +19,7 @@ const corsOptions = {
   ],
 };
 app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // APIのバージョン
 const apiVer = '/api/v1';
