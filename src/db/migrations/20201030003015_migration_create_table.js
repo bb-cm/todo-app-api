@@ -1,30 +1,30 @@
 exports.up = (knex) => {
   const sql = knex.schema
-    .createTable('user', (table) => {
+    .createTable('users', (table) => {
       table.increments().primary();
       table.varchar('email', 128).notNullable().unique();
       table.varchar('password', 128).notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
-    .createTable('login_history', (table) => {
+    .createTable('login_histories', (table) => {
       table.increments().primary();
       table.bigint('user_id').notNullable();
       table
         .foreign('user_id')
         .references('id')
-        .inTable('user')
+        .inTable('users')
         .onDelete('CASCADE');
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
-    .createTable('profile', (table) => {
+    .createTable('profiles', (table) => {
       table.increments().primary();
       table.bigint('user_id').notNullable();
       table
         .foreign('user_id')
         .references('id')
-        .inTable('user')
+        .inTable('users')
         .onDelete('CASCADE');
       table.varchar('name', 20).notNullable();
       table.date('date_of_birth').notNullable();
@@ -32,7 +32,7 @@ exports.up = (knex) => {
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
-    .createTable('todo', (table) => {
+    .createTable('todos', (table) => {
       table.increments().primary();
       table.bigint('user_id').notNullable();
       table
@@ -44,7 +44,7 @@ exports.up = (knex) => {
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
-    .createTable('todo_detail', (table) => {
+    .createTable('todo_details', (table) => {
       table.increments().primary();
       table.bigint('todo_id').notNullable();
       table
@@ -57,7 +57,7 @@ exports.up = (knex) => {
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
-    .createTable('user_temporary', (table) => {
+    .createTable('temporary_users', (table) => {
       table.increments().primary();
       table.varchar('email', 128).notNullable().unique();
       table.varchar('password', 128).notNullable();
@@ -71,7 +71,7 @@ exports.up = (knex) => {
       table.timestamp('created_at').defaultTo(knex.fn.now());
       table.timestamp('updated_at').defaultTo(knex.fn.now());
     })
-    .createTable('password_reissue', (table) => {
+    .createTable('password_recovery', (table) => {
       table.increments().primary();
       table.varchar('email', 128).notNullable().unique();
       table.varchar('token', 64).notNullable();
