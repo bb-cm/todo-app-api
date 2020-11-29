@@ -38,7 +38,7 @@ exports.up = (knex) => {
       table
         .foreign('user_id')
         .references('id')
-        .inTable('user')
+        .inTable('users')
         .onDelete('CASCADE');
       table.varchar('title', 100).notNullable();
       table.timestamp('created_at').defaultTo(knex.fn.now());
@@ -50,7 +50,7 @@ exports.up = (knex) => {
       table
         .foreign('todo_id')
         .references('id')
-        .inTable('todo')
+        .inTable('todos')
         .onDelete('CASCADE');
       table.varchar('task', 100).notNullable();
       table.boolean('is_done').notNullable().defaultTo(false);
@@ -80,15 +80,18 @@ exports.up = (knex) => {
         .notNullable()
         .defaultTo(knex.raw("current_timestamp + interval '60 minutes'"));
       table.timestamp('created_at').defaultTo(knex.fn.now());
-      table.timestamp('updated_at').defaultTo(knex.fn.now());
     });
   return sql;
 };
 
 exports.down = (knex) => {
   const sql = knex.schema
-    .dropTable('posts')
     .dropTable('users')
-    .dropTable('comments');
+    .dropTable('login_histories')
+    .dropTable('profiles')
+    .dropTable('todos')
+    .dropTable('todo_details')
+    .dropTable('temporary_users')
+    .dropTable('password_recovery');
   return sql;
 };

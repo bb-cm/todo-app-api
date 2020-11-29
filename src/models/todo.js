@@ -8,7 +8,7 @@ exports.getTodo = async (userId) => {
   try {
     return await knex
       .select('id', 'title')
-      .from('todo')
+      .from('todos')
       .where('user_id', userId);
   } catch (error) {
     throw new Error('An error occurred selecting data');

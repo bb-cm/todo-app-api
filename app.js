@@ -33,8 +33,15 @@ app.use(`${apiVer}/sample`, require('./src/routes/sample')); // TODO: 参考用�
 // エラー処理
 // TODO: 返却するステータスコードをエラーメッセージは可変にする
 app.use((req, res) => res.status(404).json({ message: 'Not found' }));
-app.use((err, req, res) => {
-  res.status(500).json({ message: 'Server Error' });
+app.use((err, req, res, next) => {
+  if (err && err.error && err.error.isJoi) {
+    res.status(400).json({
+      type: err.type,
+      message: err.error.toString(),
+    });
+  }
+  next(err.error);
+  res.status(500).json({ message: 'Internal server error' });
 });
 
 const PORT = process.env.PORT || 3000;
