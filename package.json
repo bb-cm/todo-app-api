@@ -7,6 +7,7 @@
     "start": "node app.js",
     "start-auto": "nodemon app.js",
     "format": "npx prettier --single-quote --write  'src/**/*.{js,ts,json}'",
+    "seed": "src/db/seeds/execute_seeders.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
